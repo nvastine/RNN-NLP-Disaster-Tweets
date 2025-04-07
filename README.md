@@ -1,2 +1,16 @@
 # RNN-NLP-Disaster-Tweets
-Project to use recurrent neural networks and natural language processing to binary classify tweets based on topic.
+This project explored recurrent neural networks (RNN) and their ability to process time series data. The project goal was to binary classify whether a tweet were about a disaster. Processing tweet information requires natural language processing to convert the strings into interpretable sequences. The dataset was soured from the [Kaggle 'Natural Language Processing with Disaster Tweets' Competition](https://www.kaggle.com/competitions/nlp-getting-started/submissions).
+
+The project performed standard exploratory analysis before exploring word embedding in depth. This involved processing word embedding data, creating corpos specific vocabularies, and converting tweets to padded word sequences based on word index.
+
+The first project focus compared the generalized word embeddings of GloVe to learned, application-specific embeddings. The application-specific embeddings performed better, quickly fitting the training data and achieving 0.706 test accuracy. The generalized embeddings trained much slower and performed worse on test data with 0.635 accuracy. 
+
+Subsequent testing simplified the embeddings, reducing the embedding dimensions and number of RNN units. It was found the initial model of 100 embedding dimensions and 128 RNN units may be overly complex. The rapid rate of training and reasonable validation accuracy was maintained at 16 embedding dimensions and 16 RNN units. Models surprisingly showed limited overfitting, maintaining consistent accuracy despite long training epochs.
+
+A final comparison evaluated the reduced complexity SimpleRNN model, the basis of training thus far, to LSTM and GRU methods. While LSTM was slightly slower to train (trailing by perhaps 1 epoch) and GRU seemed to have a 10 epoch delay before effective training, both outperformed the SimpleRNN architecture in validation accuracy. However, after 50 epochs the methods performed effectivey equal as SimpleRNN improved and the other methods began overfitting. Since the longest tweet sequence was 31 words, accuracy in LSTM and GRU is likely to improve more dramatically for longer sequences.
+
+Across all testing, it was found that even simple heuristic based models with custom embeddings and a complex single layer RNN can reliably capture training data without dramatic runtime. However, these models can likely be simplified, perhaps instead using computation resources for additional layers rather than additional embedding dimensions or weights. Unsurprisingly, LSTM and GRU ourperform SimpleRNN, though for short tweet sequences the improvements are only marginal.
+
+Future work could consider further modifications to the RNN architecture, including convolutional layers to structure sequences in the RNN or stacking RNN layers to reveal more complex relationships. Other word embedding methods such as BERT could add further resolution to the word embedding process. Additional pre-processing to replace typos or other word errors would also improve model performance. While this project focused on binary classification, the RNN framework can be applied to applications such as tweet sentiment, summarization, or more complex multi-class classification work.
+
+While the technology of RNN appears complex, its implementation in building models is surprisingly simple. RNN's combination with NLP approaches opens an entire world of data science applications. 
